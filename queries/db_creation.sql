@@ -14,6 +14,7 @@ CREATE TABLE employees (
 	telNo CHAR(10) NOT NULL,
 	address VARCHAR(150) NOT NULL,
 	email VARCHAR(50),
+    basicSalary DECIMAL(8,2) NOT NULL,
 	status CHAR(10) NOT NULL DEFAULT 'Active' CHECK (Status IN ('Active', 'Deactivate')),
 	JoinedDate DATE DEFAULT (CURRENT_DATE()),
 	PRIMARY KEY (employeeID)
@@ -66,13 +67,6 @@ CREATE TABLE user_login_records (
 	logoutTime TIME,
 	FOREIGN KEY (userID) REFERENCES users(userID),
 	PRIMARY KEY (userID, loginDate, loginTime)
-);
-
-CREATE TABLE salaries (
-	employeeID CHAR(8) NOT NULL,
-    basicSalary DECIMAL(8,2) NOT NULL,
-	FOREIGN KEY (employeeID) REFERENCES employees(employeeID) ON DELETE CASCADE,
-    PRIMARY KEY (employeeID)
 );
 
 CREATE TABLE bonuses (

@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -66,6 +67,10 @@ public class Employee {
     @Column(name = "email", length = 50)
     private String email;
 
+    @NotNull
+    @Column(name = "basicSalary", nullable = false, precision = 8, scale = 2)
+    private BigDecimal basicSalary;
+
     @Size(max = 10)
     @NotNull
     @Column(name = "status", nullable = false, length = 10)
@@ -76,9 +81,6 @@ public class Employee {
 
     @OneToOne(mappedBy = "employee")
     private Waiter waiter;
-
-    @OneToOne(mappedBy = "employee")
-    private Salary salary;
 
     @OneToOne(mappedBy = "employee")
     private Cashier cashier;
@@ -189,6 +191,14 @@ public class Employee {
         this.email = email;
     }
 
+    public BigDecimal getBasicSalary() {
+        return basicSalary;
+    }
+
+    public void setBasicSalary(BigDecimal basicSalary) {
+        this.basicSalary = basicSalary;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -211,14 +221,6 @@ public class Employee {
 
     public void setWaiter(Waiter waiter) {
         this.waiter = waiter;
-    }
-
-    public Salary getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Salary salary) {
-        this.salary = salary;
     }
 
     public Cashier getCashier() {
@@ -304,10 +306,10 @@ public class Employee {
                 "telNo = " + telNo + ", " +
                 "address = " + address + ", " +
                 "email = " + email + ", " +
+                "basicSalary = " + basicSalary + ", " +
                 "status = " + status + ", " +
                 "joinedDate = " + joinedDate + ", " +
                 "waiter = " + waiter + ", " +
-                "salary = " + salary + ", " +
                 "cashier = " + cashier + ", " +
                 "receptionist = " + receptionist + ", " +
                 "manager = " + manager + ", " +
