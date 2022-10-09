@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -78,6 +79,9 @@ public class Employee {
 
     @Column(name = "JoinedDate")
     private LocalDate joinedDate;
+
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
 
     @OneToOne(mappedBy = "employee")
     private Waiter waiter;
@@ -215,6 +219,14 @@ public class Employee {
         this.joinedDate = joinedDate;
     }
 
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
     public Waiter getWaiter() {
         return waiter;
     }
@@ -309,11 +321,6 @@ public class Employee {
                 "basicSalary = " + basicSalary + ", " +
                 "status = " + status + ", " +
                 "joinedDate = " + joinedDate + ", " +
-                "waiter = " + waiter + ", " +
-                "cashier = " + cashier + ", " +
-                "receptionist = " + receptionist + ", " +
-                "manager = " + manager + ", " +
-                "users = " + users + ", " +
-                "chef = " + chef + ")";
+                "deletedAt = " + deletedAt + ")";
     }
 }

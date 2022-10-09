@@ -59,6 +59,9 @@ public class Booking {
     @JoinColumn(name = "receptionistID", nullable = false)
     private Receptionist receptionistID;
 
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
+
     @OneToMany(mappedBy = "booking")
     private Set<Reservation> reservations = new LinkedHashSet<>();
 
@@ -142,6 +145,14 @@ public class Booking {
         this.receptionistID = receptionistID;
     }
 
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
     public Set<Reservation> getReservations() {
         return reservations;
     }
@@ -173,6 +184,7 @@ public class Booking {
                 "billingAmount = " + billingAmount + ", " +
                 "noOfPerson = " + noOfPerson + ", " +
                 "checkIn = " + checkIn + ", " +
-                "checkOut = " + checkOut + ")";
+                "checkOut = " + checkOut + ", " +
+                "deletedAt = " + deletedAt + ")";
     }
 }

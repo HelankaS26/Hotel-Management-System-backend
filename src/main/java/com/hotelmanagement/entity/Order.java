@@ -50,6 +50,9 @@ public class Order {
     @JoinColumn(name = "cashierID", nullable = false)
     private Cashier cashierID;
 
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
+
     @OneToMany(mappedBy = "order")
     private Set<Bill> bills = new LinkedHashSet<>();
 
@@ -109,6 +112,14 @@ public class Order {
         this.cashierID = cashierID;
     }
 
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
     public Set<Bill> getBills() {
         return bills;
     }
@@ -136,6 +147,7 @@ public class Order {
                 "id = " + id + ", " +
                 "date = " + date + ", " +
                 "status = " + status + ", " +
-                "netPrice = " + netPrice + ")";
+                "netPrice = " + netPrice + ", " +
+                "deletedAt = " + deletedAt + ")";
     }
 }

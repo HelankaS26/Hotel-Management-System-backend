@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -43,6 +44,9 @@ public class User {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "employeeID", nullable = false)
     private Employee employeeID;
+
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
 
     @OneToMany(mappedBy = "user")
     private Set<UserLoginRecord> userLoginRecords = new LinkedHashSet<>();
@@ -87,6 +91,14 @@ public class User {
         this.employeeID = employeeID;
     }
 
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
     public Set<UserLoginRecord> getUserLoginRecords() {
         return userLoginRecords;
     }
@@ -113,7 +125,7 @@ public class User {
         return getClass().getSimpleName() + "(" +
                 "id = " + id + ", " +
                 "username = " + username + ", " +
-                "password = " + password + ", " +
-                "status = " + status + ")";
+                "status = " + status + ", " +
+                "deletedAt = " + deletedAt + ")";
     }
 }

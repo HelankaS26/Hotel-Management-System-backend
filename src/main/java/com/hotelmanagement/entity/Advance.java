@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -42,6 +43,9 @@ public class Advance {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "handlerManagerID", nullable = false)
     private Manager handlerManagerID;
+
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
 
     public Integer getId() {
         return id;
@@ -91,6 +95,14 @@ public class Advance {
         this.handlerManagerID = handlerManagerID;
     }
 
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,6 +122,7 @@ public class Advance {
                 "id = " + id + ", " +
                 "description = " + description + ", " +
                 "amount = " + amount + ", " +
-                "date = " + date + ")";
+                "date = " + date + ", " +
+                "deletedAt = " + deletedAt + ")";
     }
 }

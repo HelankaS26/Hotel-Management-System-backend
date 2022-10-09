@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -41,6 +42,9 @@ public class Item {
     @NotNull
     @Column(name = "image", nullable = false, length = 300)
     private String image;
+
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
 
     @OneToMany(mappedBy = "item")
     private Set<Bill> bills = new LinkedHashSet<>();
@@ -93,6 +97,14 @@ public class Item {
         this.image = image;
     }
 
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
     public Set<Bill> getBills() {
         return bills;
     }
@@ -122,6 +134,7 @@ public class Item {
                 "category = " + category + ", " +
                 "description = " + description + ", " +
                 "price = " + price + ", " +
-                "image = " + image + ")";
+                "image = " + image + ", " +
+                "deletedAt = " + deletedAt + ")";
     }
 }

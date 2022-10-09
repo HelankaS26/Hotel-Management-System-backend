@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -50,6 +51,9 @@ public class Guest {
     @Size(max = 50)
     @Column(name = "email", length = 50)
     private String email;
+
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
 
     @OneToMany(mappedBy = "guestID")
     private Set<Booking> bookings = new LinkedHashSet<>();
@@ -118,6 +122,14 @@ public class Guest {
         this.email = email;
     }
 
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
     public Set<Booking> getBookings() {
         return bookings;
     }
@@ -149,6 +161,7 @@ public class Guest {
                 "lastName = " + lastName + ", " +
                 "sex = " + sex + ", " +
                 "address = " + address + ", " +
-                "email = " + email + ")";
+                "email = " + email + ", " +
+                "deletedAt = " + deletedAt + ")";
     }
 }

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -36,6 +37,9 @@ public class Bonus {
     @NotNull
     @Column(name = "date", nullable = false)
     private LocalDate date;
+
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
 
     public Integer getId() {
         return id;
@@ -77,6 +81,14 @@ public class Bonus {
         this.date = date;
     }
 
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -96,6 +108,7 @@ public class Bonus {
                 "id = " + id + ", " +
                 "amount = " + amount + ", " +
                 "description = " + description + ", " +
-                "date = " + date + ")";
+                "date = " + date + ", " +
+                "deletedAt = " + deletedAt + ")";
     }
 }

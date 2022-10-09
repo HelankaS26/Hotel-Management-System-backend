@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Objects;
 
 @Entity
@@ -29,6 +30,9 @@ public class Reservation {
     @NotNull
     @Column(name = "nett", nullable = false, precision = 8, scale = 2)
     private BigDecimal nett;
+
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
 
     public ReservationId getId() {
         return id;
@@ -62,6 +66,14 @@ public class Reservation {
         this.nett = nett;
     }
 
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(Instant deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,6 +91,7 @@ public class Reservation {
     public String toString() {
         return getClass().getSimpleName() + "(" +
                 "EmbeddedId = " + id + ", " +
-                "nett = " + nett + ")";
+                "nett = " + nett + ", " +
+                "deletedAt = " + deletedAt + ")";
     }
 }

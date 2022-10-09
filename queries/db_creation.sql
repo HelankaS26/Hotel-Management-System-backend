@@ -17,6 +17,7 @@ CREATE TABLE employees (
     basicSalary DECIMAL(8,2) NOT NULL,
 	status CHAR(10) NOT NULL DEFAULT 'Active' CHECK (Status IN ('Active', 'Deactivate')),
 	JoinedDate DATE DEFAULT (CURRENT_DATE()),
+    deleted_at DATETIME,
 	PRIMARY KEY (employeeID)
 );
 
@@ -56,6 +57,7 @@ CREATE TABLE users (
 	password CHAR(100) NOT NULL,
     status CHAR(10) NOT NULL DEFAULT 'Active' CHECK (Status IN ('Active', 'Deactivate')),
 	employeeID CHAR(8) NOT NULL,
+    deleted_at DATETIME,
 	FOREIGN KEY (employeeID) REFERENCES employees(employeeID) ON DELETE CASCADE,
 	PRIMARY KEY (userID)
 );
@@ -75,6 +77,7 @@ CREATE TABLE bonuses (
     amount DECIMAL(7,2) NOT NULL,
     description VARCHAR(100) NOT NULL,
     date DATE NOT NULL DEFAULT (CURRENT_DATE()),
+    deleted_at DATETIME,
 	FOREIGN KEY (employeeID) REFERENCES employees(employeeID),
     PRIMARY KEY (bonusID)
 );
@@ -86,6 +89,7 @@ CREATE TABLE advances (
 	date DATE NOT NULL DEFAULT (CURRENT_DATE()),
 	employeeID CHAR(11) NOT NULL,
 	handlerManagerID CHAR(11) NOT NULL,
+    deleted_at DATETIME,
 	FOREIGN KEY (employeeID) REFERENCES employees(employeeID),
 	FOREIGN KEY (handlerManagerID) REFERENCES managers(managerID),
 	PRIMARY KEY (advanceID)
@@ -100,6 +104,7 @@ CREATE TABLE guests (
 	sex CHAR(6) NOT NULL CHECK (Sex IN ('Male', 'Female', 'Other')),
 	address VARCHAR(150) NOT NULL,
 	email VARCHAR(50),
+    deleted_at DATETIME,
 	PRIMARY KEY (telNo)
 );
 
@@ -114,6 +119,7 @@ CREATE TABLE bookings (
     checkIn DATETIME,
     checkOut DATETIME,
     receptionistID CHAR(8) NOT NULL,
+    deleted_at DATETIME,
     FOREIGN KEY (guestID) REFERENCES guests(telNo),
     FOREIGN KEY (receptionistID) REFERENCES receptionists(receptionistID),
     PRIMARY KEY (bookingID)
@@ -128,6 +134,7 @@ CREATE TABLE rooms (
     noOfBed INT NOT NULL,
     roomType VARCHAR(10) NOT NULL CHECK (roomType IN ('Single', 'Double', 'Triple', 'Quad')),
     charge DECIMAL(7,2) NOT NULL,
+    deleted_at DATETIME,
     PRIMARY KEY (roomID)
 );
 
@@ -135,6 +142,7 @@ CREATE TABLE reservations (
 	bookingID INT NOT NULL,
     roomID INT NOT NULL,
     nett DECIMAL(8,2) NOT NULL,
+    deleted_at DATETIME,
     FOREIGN KEY (bookingID) REFERENCES bookings(bookingID),
     FOREIGN KEY (roomID) REFERENCES rooms(roomID),
     PRIMARY KEY (bookingID, roomID)
@@ -147,6 +155,7 @@ CREATE TABLE items (
     description VARCHAR(150),
     price DECIMAL(7,2) NOT NULL,
     image VARCHAR(300) NOT NULL,
+    deleted_at DATETIME,
     PRIMARY KEY (itemID)
 );
 
@@ -158,6 +167,7 @@ CREATE TABLE orders (
     waiterID CHAR(8) NOT NULL,
     chefID CHAR(8) NOT NULL,
     cashierID CHAR(8) NOT NULL,
+    deleted_at DATETIME,
     FOREIGN KEY (waiterID) REFERENCES waiters(waiterID),
     FOREIGN KEY (chefID) REFERENCES chefs(chefID),
     FOREIGN KEY (cashierID) REFERENCES cashiers(cashierID),
@@ -169,6 +179,7 @@ CREATE TABLE bills (
     itemID CHAR(8) NOT NULL,
     unitPrice DECIMAL(7,2) NOT NULL,
     quantity INT NOT NULL,
+    deleted_at DATETIME,
     FOREIGN KEY (orderID) REFERENCES orders(orderID),
     FOREIGN KEY (itemID) REFERENCES items(itemID),
     PRIMARY KEY (orderID, itemID)
