@@ -40,14 +40,12 @@ public class Order {
     @JoinColumn(name = "waiterID", nullable = false)
     private Waiter waiterID;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "chefID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chefID")
     private Chef chefID;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "cashierID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cashierID")
     private Cashier cashierID;
 
     @Column(name = "deleted_at")
