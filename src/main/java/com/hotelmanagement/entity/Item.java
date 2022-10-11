@@ -46,7 +46,7 @@ public class Item {
     @Column(name = "deleted_at")
     private Instant deletedAt;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "itemID")
     private Set<Bill> bills = new LinkedHashSet<>();
 
     public String getId() {

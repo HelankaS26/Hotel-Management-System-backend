@@ -48,7 +48,7 @@ public class User {
     @Column(name = "deleted_at")
     private Instant deletedAt;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userID")
     private Set<UserLoginRecord> userLoginRecords = new LinkedHashSet<>();
 
     public String getId() {

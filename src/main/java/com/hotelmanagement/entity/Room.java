@@ -53,7 +53,7 @@ public class Room {
     @Column(name = "deleted_at")
     private Instant deletedAt;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "roomID")
     private Set<Reservation> reservations = new LinkedHashSet<>();
 
     public Integer getId() {

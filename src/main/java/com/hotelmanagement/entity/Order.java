@@ -51,7 +51,7 @@ public class Order {
     @Column(name = "deleted_at")
     private Instant deletedAt;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "orderID")
     private Set<Bill> bills = new LinkedHashSet<>();
 
     public Integer getId() {

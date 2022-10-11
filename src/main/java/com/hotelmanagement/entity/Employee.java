@@ -83,25 +83,25 @@ public class Employee {
     @Column(name = "deleted_at")
     private Instant deletedAt;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employees")
     private Waiter waiter;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employees")
     private Cashier cashier;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employees")
     private Receptionist receptionist;
 
     @OneToMany(mappedBy = "employeeID")
     private Set<Bonus> bonuses = new LinkedHashSet<>();
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employees")
     private Manager manager;
 
     @OneToOne(mappedBy = "employeeID")
     private User users;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employees")
     private Chef chef;
 
     @OneToMany(mappedBy = "employeeID")
