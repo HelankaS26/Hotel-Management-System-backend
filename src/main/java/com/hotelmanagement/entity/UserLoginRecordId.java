@@ -12,8 +12,8 @@ import java.time.LocalTime;
 import java.util.Objects;
 
 @Embeddable
-public class UserloginrecordId implements Serializable {
-    private static final long serialVersionUID = -7515337413178480124L;
+public class UserLoginRecordId implements Serializable {
+    private static final long serialVersionUID = 6924481909981207742L;
     @Size(max = 8)
     @NotNull
     @Column(name = "userID", nullable = false, length = 8)
@@ -55,7 +55,7 @@ public class UserloginrecordId implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        UserloginrecordId entity = (UserloginrecordId) o;
+        UserLoginRecordId entity = (UserLoginRecordId) o;
         return Objects.equals(this.loginTime, entity.loginTime) &&
                 Objects.equals(this.loginDate, entity.loginDate) &&
                 Objects.equals(this.userID, entity.userID);

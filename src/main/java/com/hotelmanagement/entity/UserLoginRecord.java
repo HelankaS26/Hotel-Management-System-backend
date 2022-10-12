@@ -5,9 +5,9 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "userloginrecords", schema = "hotel_springboot_db")
-public class Userloginrecord {
+public class UserLoginRecord {
     @EmbeddedId
-    private UserloginrecordId id;
+    private UserLoginRecordId id;
 
     @MapsId("userID")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -17,11 +17,11 @@ public class Userloginrecord {
     @Column(name = "logoutTime")
     private LocalTime logoutTime;
 
-    public UserloginrecordId getId() {
+    public UserLoginRecordId getId() {
         return id;
     }
 
-    public void setId(UserloginrecordId id) {
+    public void setId(UserLoginRecordId id) {
         this.id = id;
     }
 
