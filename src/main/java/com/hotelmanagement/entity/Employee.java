@@ -68,8 +68,8 @@ public class Employee {
     private String email;
 
     @NotNull
-    @Column(name = "basicSalary", nullable = false, precision = 8, scale = 2)
-    private BigDecimal basicSalary;
+    @Column(name = "salary", nullable = false, precision = 8, scale = 2)
+    private BigDecimal salary;
 
     @Size(max = 10)
     @NotNull
@@ -191,12 +191,12 @@ public class Employee {
         this.email = email;
     }
 
-    public BigDecimal getBasicSalary() {
-        return basicSalary;
+    public BigDecimal getSalary() {
+        return salary;
     }
 
-    public void setBasicSalary(BigDecimal basicSalary) {
-        this.basicSalary = basicSalary;
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
     }
 
     public String getStatus() {
@@ -317,7 +317,7 @@ public class Employee {
                 "telNo = " + telNo + ", " +
                 "address = " + address + ", " +
                 "email = " + email + ", " +
-                "basicSalary = " + basicSalary + ", " +
+                "salary = " + salary + ", " +
                 "status = " + status + ", " +
                 "joinedDate = " + joinedDate + ", " +
                 "waiter = " + waiter + ", " +

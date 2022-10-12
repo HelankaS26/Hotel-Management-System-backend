@@ -39,12 +39,12 @@ public class StoreEmployeeDTO implements Serializable {
     @Size(max = 50)
     private String email;
     @NotNull
-    private BigDecimal basicSalary;
+    private BigDecimal salary;
 
     public StoreEmployeeDTO() {
     }
 
-    public StoreEmployeeDTO(String employeeType, String title, String nic, String firstName, String lastName, LocalDate dob, String sex, String telNo, String address, String email, BigDecimal basicSalary) {
+    public StoreEmployeeDTO(String employeeType, String title, String nic, String firstName, String lastName, LocalDate dob, String sex, String telNo, String address, String email, BigDecimal salary) {
         this.employeeType = employeeType;
         this.title = title;
         this.nic = nic;
@@ -55,7 +55,7 @@ public class StoreEmployeeDTO implements Serializable {
         this.telNo = telNo;
         this.address = address;
         this.email = email;
-        this.basicSalary = basicSalary;
+        this.salary = salary;
     }
 
     public String getEmployeeType() {
@@ -138,12 +138,12 @@ public class StoreEmployeeDTO implements Serializable {
         this.email = email;
     }
 
-    public BigDecimal getBasicSalary() {
-        return basicSalary;
+    public BigDecimal getSalary() {
+        return salary;
     }
 
-    public void setBasicSalary(BigDecimal basicSalary) {
-        this.basicSalary = basicSalary;
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
     }
 
     @Override
@@ -161,12 +161,12 @@ public class StoreEmployeeDTO implements Serializable {
                 Objects.equals(this.telNo, entity.telNo) &&
                 Objects.equals(this.address, entity.address) &&
                 Objects.equals(this.email, entity.email) &&
-                Objects.equals(this.basicSalary, entity.basicSalary);
+                Objects.equals(this.salary, entity.salary);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employeeType, title, nic, firstName, lastName, dob, sex, telNo, address, email, basicSalary);
+        return Objects.hash(employeeType, title, nic, firstName, lastName, dob, sex, telNo, address, email, salary);
     }
 
     @Override
@@ -182,6 +182,6 @@ public class StoreEmployeeDTO implements Serializable {
                 "telNo = " + telNo + ", " +
                 "address = " + address + ", " +
                 "email = " + email + ", " +
-                "basicSalary = " + basicSalary + ")";
+                "salary = " + salary + ")";
     }
 }

@@ -41,7 +41,7 @@ public class UpdateEmployeeDTO implements Serializable {
     @Size(max = 50)
     private String email;
     @NotNull
-    private BigDecimal basicSalary;
+    private BigDecimal salary;
     @Size(max = 10)
     @NotNull
     private String status;
@@ -49,7 +49,7 @@ public class UpdateEmployeeDTO implements Serializable {
     public UpdateEmployeeDTO() {
     }
 
-    public UpdateEmployeeDTO(String id, String employeeType, String title, String nic, String firstName, String lastName, LocalDate dob, String sex, String telNo, String address, String email, BigDecimal basicSalary, String status) {
+    public UpdateEmployeeDTO(String id, String employeeType, String title, String nic, String firstName, String lastName, LocalDate dob, String sex, String telNo, String address, String email, BigDecimal salary, String status) {
         this.id = id;
         this.employeeType = employeeType;
         this.title = title;
@@ -61,7 +61,7 @@ public class UpdateEmployeeDTO implements Serializable {
         this.telNo = telNo;
         this.address = address;
         this.email = email;
-        this.basicSalary = basicSalary;
+        this.salary = salary;
         this.status = status;
     }
 
@@ -153,12 +153,12 @@ public class UpdateEmployeeDTO implements Serializable {
         this.email = email;
     }
 
-    public BigDecimal getBasicSalary() {
-        return basicSalary;
+    public BigDecimal getSalary() {
+        return salary;
     }
 
-    public void setBasicSalary(BigDecimal basicSalary) {
-        this.basicSalary = basicSalary;
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
     }
 
     public String getStatus() {
@@ -185,13 +185,13 @@ public class UpdateEmployeeDTO implements Serializable {
                 Objects.equals(this.telNo, entity.telNo) &&
                 Objects.equals(this.address, entity.address) &&
                 Objects.equals(this.email, entity.email) &&
-                Objects.equals(this.basicSalary, entity.basicSalary) &&
+                Objects.equals(this.salary, entity.salary) &&
                 Objects.equals(this.status, entity.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, employeeType, title, nic, firstName, lastName, dob, sex, telNo, address, email, basicSalary, status);
+        return Objects.hash(id, employeeType, title, nic, firstName, lastName, dob, sex, telNo, address, email, salary, status);
     }
 
     @Override
@@ -208,7 +208,7 @@ public class UpdateEmployeeDTO implements Serializable {
                 "telNo = " + telNo + ", " +
                 "address = " + address + ", " +
                 "email = " + email + ", " +
-                "basicSalary = " + basicSalary + ", " +
+                "salary = " + salary + ", " +
                 "status = " + status + ")";
     }
 }
