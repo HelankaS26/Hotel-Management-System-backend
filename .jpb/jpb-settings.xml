@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="JpaPluginProjectSettings" reExcludeTablePrefixes="" reExcludeColumnPrefixes="" dtoClassNamePostfix="DTO">
-    <option name="entityNameTemplate" />
-    <option name="tableNameTemplate" value="${className.underscore().toLowerCase().pluralize()}" />
-    <option name="useLazyOnToOneAssociations" value="true" />
-    <option name="scaffoldingLanguage" />
-  </component>
-</project>
