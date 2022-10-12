@@ -1,13 +1,15 @@
 package com.hotelmanagement.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.Hibernate;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "items", schema = "hotel_springboot_db")
@@ -42,6 +44,9 @@ public class Item {
 
     @Column(name = "deletedAt")
     private Instant deletedAt;
+
+    @OneToMany(mappedBy = "itemID")
+    private Set<Bill> bills = new LinkedHashSet<>();
 
     public String getId() {
         return id;
@@ -99,4 +104,35 @@ public class Item {
         this.deletedAt = deletedAt;
     }
 
+    public Set<Bill> getBills() {
+        return bills;
+    }
+
+    public void setBills(Set<Bill> bills) {
+        this.bills = bills;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Item item = (Item) o;
+        return id != null && Objects.equals(id, item.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "name = " + name + ", " +
+                "category = " + category + ", " +
+                "description = " + description + ", " +
+                "price = " + price + ", " +
+                "image = " + image + ")";
+    }
 }

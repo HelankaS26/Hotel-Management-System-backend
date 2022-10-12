@@ -1,11 +1,14 @@
 package com.hotelmanagement.entity;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "bonuses", schema = "hotel_springboot_db", indexes = {
@@ -85,4 +88,25 @@ public class Bonus {
         this.deletedAt = deletedAt;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Bonus bonus = (Bonus) o;
+        return id != null && Objects.equals(id, bonus.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "amount = " + amount + ", " +
+                "description = " + description + ", " +
+                "date = " + date + ")";
+    }
 }

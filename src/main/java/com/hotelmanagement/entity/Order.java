@@ -1,10 +1,15 @@
 package com.hotelmanagement.entity;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders", schema = "hotel_springboot_db", indexes = {
@@ -44,6 +49,9 @@ public class Order {
 
     @Column(name = "deletedAt")
     private Instant deletedAt;
+
+    @OneToMany(mappedBy = "orderID")
+    private Set<Bill> bills = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -109,4 +117,33 @@ public class Order {
         this.deletedAt = deletedAt;
     }
 
+    public Set<Bill> getBills() {
+        return bills;
+    }
+
+    public void setBills(Set<Bill> bills) {
+        this.bills = bills;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Order order = (Order) o;
+        return id != null && Objects.equals(id, order.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "date = " + date + ", " +
+                "status = " + status + ", " +
+                "netPrice = " + netPrice + ")";
+    }
 }

@@ -51,4 +51,11 @@ public class BillId implements Serializable {
         return Objects.hash(itemID, orderID);
     }
 
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "serialVersionUID = " + serialVersionUID + ", " +
+                "orderID = " + orderID + ", " +
+                "itemID = " + itemID + ")";
+    }
 }

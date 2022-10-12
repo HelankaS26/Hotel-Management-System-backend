@@ -49,4 +49,11 @@ public class ReservationId implements Serializable {
         return Objects.hash(bookingID, roomID);
     }
 
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "serialVersionUID = " + serialVersionUID + ", " +
+                "bookingID = " + bookingID + ", " +
+                "roomID = " + roomID + ")";
+    }
 }

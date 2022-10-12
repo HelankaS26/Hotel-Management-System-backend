@@ -66,4 +66,12 @@ public class UserLoginRecordId implements Serializable {
         return Objects.hash(loginTime, loginDate, userID);
     }
 
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "serialVersionUID = " + serialVersionUID + ", " +
+                "userID = " + userID + ", " +
+                "loginDate = " + loginDate + ", " +
+                "loginTime = " + loginTime + ")";
+    }
 }

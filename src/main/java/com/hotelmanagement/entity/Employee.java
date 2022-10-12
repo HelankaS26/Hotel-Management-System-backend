@@ -1,14 +1,16 @@
 package com.hotelmanagement.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.Hibernate;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees", schema = "hotel_springboot_db")
@@ -79,6 +81,27 @@ public class Employee {
 
     @Column(name = "deletedAt")
     private Instant deletedAt;
+
+    @OneToOne(mappedBy = "employees")
+    private Waiter waiter;
+
+    @OneToOne(mappedBy = "employees")
+    private Cashier cashier;
+
+    @OneToOne(mappedBy = "employees")
+    private Receptionist receptionist;
+
+    @OneToMany(mappedBy = "employeeID")
+    private Set<Bonus> bonuses = new LinkedHashSet<>();
+
+    @OneToOne(mappedBy = "employees")
+    private Manager manager;
+
+    @OneToOne(mappedBy = "employeeID")
+    private User users;
+
+    @OneToOne(mappedBy = "employees")
+    private Chef chef;
 
     public String getId() {
         return id;
@@ -200,4 +223,108 @@ public class Employee {
         this.deletedAt = deletedAt;
     }
 
+    @OneToMany(mappedBy = "employeeID")
+    private Set<Advance> advances = new LinkedHashSet<>();
+
+    public Set<Advance> getAdvances() {
+        return advances;
+    }
+
+    public void setAdvances(Set<Advance> advances) {
+        this.advances = advances;
+    }
+
+    public Chef getChef() {
+        return chef;
+    }
+
+    public void setChef(Chef chef) {
+        this.chef = chef;
+    }
+
+    public User getUsers() {
+        return users;
+    }
+
+    public void setUsers(User users) {
+        this.users = users;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
+    public Set<Bonus> getBonuses() {
+        return bonuses;
+    }
+
+    public void setBonuses(Set<Bonus> bonuses) {
+        this.bonuses = bonuses;
+    }
+
+    public Receptionist getReceptionist() {
+        return receptionist;
+    }
+
+    public void setReceptionist(Receptionist receptionist) {
+        this.receptionist = receptionist;
+    }
+
+    public Cashier getCashier() {
+        return cashier;
+    }
+
+    public void setCashier(Cashier cashier) {
+        this.cashier = cashier;
+    }
+
+    public Waiter getWaiter() {
+        return waiter;
+    }
+
+    public void setWaiter(Waiter waiter) {
+        this.waiter = waiter;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Employee employee = (Employee) o;
+        return id != null && Objects.equals(id, employee.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "employeeType = " + employeeType + ", " +
+                "title = " + title + ", " +
+                "nic = " + nic + ", " +
+                "firstName = " + firstName + ", " +
+                "lastName = " + lastName + ", " +
+                "dob = " + dob + ", " +
+                "sex = " + sex + ", " +
+                "telNo = " + telNo + ", " +
+                "address = " + address + ", " +
+                "email = " + email + ", " +
+                "basicSalary = " + basicSalary + ", " +
+                "status = " + status + ", " +
+                "joinedDate = " + joinedDate + ", " +
+                "waiter = " + waiter + ", " +
+                "cashier = " + cashier + ", " +
+                "receptionist = " + receptionist + ", " +
+                "manager = " + manager + ", " +
+                "users = " + users + ", " +
+                "chef = " + chef + ")";
+    }
 }

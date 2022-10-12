@@ -1,5 +1,6 @@
 package com.hotelmanagement.entity;
 
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -7,6 +8,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users", schema = "hotel_springboot_db", indexes = {
@@ -35,13 +39,16 @@ public class User {
     private String status;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "employeeID", nullable = false)
     private Employee employeeID;
 
     @Column(name = "deletedAt")
     private Instant deletedAt;
+
+    @OneToMany(mappedBy = "userID")
+    private Set<UserLoginRecord> userloginrecords = new LinkedHashSet<>();
 
     public String getId() {
         return id;
@@ -91,4 +98,33 @@ public class User {
         this.deletedAt = deletedAt;
     }
 
+    public Set<UserLoginRecord> getUserloginrecords() {
+        return userloginrecords;
+    }
+
+    public void setUserloginrecords(Set<UserLoginRecord> userloginrecords) {
+        this.userloginrecords = userloginrecords;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "username = " + username + ", " +
+                "password = " + password + ", " +
+                "status = " + status + ")";
+    }
 }

@@ -1,9 +1,12 @@
 package com.hotelmanagement.entity;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
 @Table(name = "bills", schema = "hotel_springboot_db", indexes = {
@@ -82,4 +85,24 @@ public class Bill {
         this.deletedAt = deletedAt;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Bill bill = (Bill) o;
+        return id != null && Objects.equals(id, bill.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "EmbeddedId = " + id + ", " +
+                "unitPrice = " + unitPrice + ", " +
+                "quantity = " + quantity + ")";
+    }
 }

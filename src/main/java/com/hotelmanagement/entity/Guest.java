@@ -1,12 +1,14 @@
 package com.hotelmanagement.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.Hibernate;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "guests", schema = "hotel_springboot_db")
@@ -51,6 +53,9 @@ public class Guest {
 
     @Column(name = "deletedAt")
     private Instant deletedAt;
+
+    @OneToMany(mappedBy = "guestID")
+    private Set<Booking> bookings = new LinkedHashSet<>();
 
     public String getId() {
         return id;
@@ -124,4 +129,37 @@ public class Guest {
         this.deletedAt = deletedAt;
     }
 
+    public Set<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Set<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Guest guest = (Guest) o;
+        return id != null && Objects.equals(id, guest.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "title = " + title + ", " +
+                "nic = " + nic + ", " +
+                "firstName = " + firstName + ", " +
+                "lastName = " + lastName + ", " +
+                "sex = " + sex + ", " +
+                "address = " + address + ", " +
+                "email = " + email + ")";
+    }
 }

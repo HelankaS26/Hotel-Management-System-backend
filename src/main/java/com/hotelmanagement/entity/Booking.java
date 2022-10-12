@@ -1,11 +1,16 @@
 package com.hotelmanagement.entity;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "bookings", schema = "hotel_springboot_db", indexes = {
@@ -55,6 +60,9 @@ public class Booking {
 
     @Column(name = "deletedAt")
     private Instant deletedAt;
+
+    @OneToMany(mappedBy = "bookingID")
+    private Set<Reservation> reservations = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -144,4 +152,37 @@ public class Booking {
         this.deletedAt = deletedAt;
     }
 
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Booking booking = (Booking) o;
+        return id != null && Objects.equals(id, booking.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "dateFrom = " + dateFrom + ", " +
+                "dateTo = " + dateTo + ", " +
+                "status = " + status + ", " +
+                "billingAmount = " + billingAmount + ", " +
+                "noOfPerson = " + noOfPerson + ", " +
+                "checkIn = " + checkIn + ", " +
+                "checkOut = " + checkOut + ")";
+    }
 }
