@@ -14,9 +14,6 @@ public class ResourceUserDTO implements Serializable {
     @Size(max = 30)
     @NotNull
     private String username;
-    @Size(max = 100)
-    @NotNull
-    private String password;
     @Size(max = 10)
     @NotNull
     private String status;
@@ -29,7 +26,6 @@ public class ResourceUserDTO implements Serializable {
     public ResourceUserDTO(String id, String username, String password, String status, ResourceEmployeeDTO employee) {
         this.id = id;
         this.username = username;
-        this.password = password;
         this.status = status;
         this.employee = employee;
     }
@@ -48,14 +44,6 @@ public class ResourceUserDTO implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getStatus() {
@@ -81,14 +69,13 @@ public class ResourceUserDTO implements Serializable {
         ResourceUserDTO entity = (ResourceUserDTO) o;
         return Objects.equals(this.id, entity.id) &&
                 Objects.equals(this.username, entity.username) &&
-                Objects.equals(this.password, entity.password) &&
                 Objects.equals(this.status, entity.status) &&
                 Objects.equals(this.employee, entity.employee);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, status, employee);
+        return Objects.hash(id, username, status, employee);
     }
 
     @Override
@@ -96,7 +83,6 @@ public class ResourceUserDTO implements Serializable {
         return getClass().getSimpleName() + "(" +
                 "id = " + id + ", " +
                 "username = " + username + ", " +
-                "password = " + password + ", " +
                 "status = " + status + ", " +
                 "employee = " + employee + ")";
     }
