@@ -1,14 +1,11 @@
 package com.hotelmanagement.repository;
 
-import com.hotelmanagement.entity.Employee;
 import com.hotelmanagement.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 @Repository

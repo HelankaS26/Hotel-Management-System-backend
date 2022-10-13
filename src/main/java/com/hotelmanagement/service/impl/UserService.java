@@ -1,10 +1,8 @@
 package com.hotelmanagement.service.impl;
 
 import com.hotelmanagement.dto.*;
-import com.hotelmanagement.entity.Employee;
 import com.hotelmanagement.entity.User;
-import com.hotelmanagement.mapper.*;
-import com.hotelmanagement.repository.EmployeeRepository;
+import com.hotelmanagement.mapper.*;;
 import com.hotelmanagement.repository.UserRepository;
 import com.hotelmanagement.service.UserServiceable;
 import org.springframework.beans.factory.annotation.Autowired;

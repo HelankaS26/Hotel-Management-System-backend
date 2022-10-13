@@ -1,7 +1,6 @@
 package com.hotelmanagement.controller;
 
 import com.hotelmanagement.dto.*;
-import com.hotelmanagement.service.EmployeeServiceable;
 import com.hotelmanagement.service.UserServiceable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
