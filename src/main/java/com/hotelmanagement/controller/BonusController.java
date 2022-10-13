@@ -2,13 +2,12 @@ package com.hotelmanagement.controller;
 
 import com.hotelmanagement.dto.*;
 import com.hotelmanagement.service.BonusServiceable;
-import com.hotelmanagement.service.EmployeeServiceable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/v1.0/bonuses")
 public class BonusController {
