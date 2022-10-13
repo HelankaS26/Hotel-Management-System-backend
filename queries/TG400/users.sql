@@ -43,3 +43,23 @@ END$$
 DELIMITER ;
 
 CALL updateUser('USERS001', 'hotelAdmin1', 'Active');
+
+
+
+/****************************************************** users password update procedure *********************************************************************/
+DELIMITER $$
+
+CREATE PROCEDURE changeUserPassword(
+	IN id CHAR(8), 
+	IN password CHAR(100)
+)  
+BEGIN
+	UPDATE users
+    SET 
+		password = MD5(password)
+    WHERE userID = id;
+END$$
+
+DELIMITER ;
+
+CALL changeUserPassword('USERS001', 'abc123');
