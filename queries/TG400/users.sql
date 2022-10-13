@@ -22,3 +22,24 @@ END$$
 DELIMITER ;
 
 CALL addUser('hotelAdmin', '123abc', 'CASHR001');
+
+
+/****************************************************** users update procedure *********************************************************************/
+DELIMITER $$
+
+CREATE PROCEDURE updateUser(
+	IN id CHAR(8), 
+	IN username VARCHAR(30),
+	IN status CHAR(10)
+)  
+BEGIN
+	UPDATE users
+    SET 
+		username = username,
+        status = status
+    WHERE userID = id;
+END$$
+
+DELIMITER ;
+
+CALL updateUser('USERS001', 'hotelAdmin1', 'Active');
