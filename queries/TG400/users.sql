@@ -63,3 +63,22 @@ END$$
 DELIMITER ;
 
 CALL changeUserPassword('USERS001', 'abc123');
+
+
+
+/****************************************************** user delete procedure *********************************************************************/
+DELIMITER $$
+
+CREATE PROCEDURE deleteUser(
+	IN id CHAR(8)
+)  
+BEGIN
+	UPDATE users
+    SET 
+		deletedAt = CURRENT_TIMESTAMP()
+    WHERE userID = id;
+END$$
+
+DELIMITER ;
+
+CALL deleteUser('USERS001');
