@@ -82,3 +82,21 @@ END$$
 DELIMITER ;
 
 CALL deleteUser('USERS001');
+
+
+
+/****************************************************** user view *********************************************************************/
+CREATE VIEW users_view
+AS 
+SELECT
+	userID,
+    username,
+    password,
+    status,
+    employeeID,
+    deletedAt
+FROM
+    users
+WHERE deletedAt IS NULL;    
+    
+SELECT * FROM users_view;
