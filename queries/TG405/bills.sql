@@ -18,4 +18,5 @@ END$$
 
 DELIMITER ;
 
-CALL addReservation(2, 1, 20000.00);
+CALL addBill(1, 'ITEMS001', 1500.00, 2);
+CALL addBill(1, 'ITEMS002', 2000.00, 1);

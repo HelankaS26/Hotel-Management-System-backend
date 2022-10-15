@@ -115,7 +115,7 @@ CREATE VIEW orders_view
 AS 
 SELECT 
     orderID,
-    date
+    date,
     status,
     netPrice,
     waiterID,
