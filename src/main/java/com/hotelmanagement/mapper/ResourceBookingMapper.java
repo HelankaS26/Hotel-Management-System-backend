@@ -7,7 +7,8 @@ import org.mapstruct.*;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface ResourceBookingMapper {
     @Mapping(source = "guest", target = "guestID")
-    @Mapping(source = "receptionist", target = "receptionistID")
+    @Mapping(source = "receptionistId", target = "receptionistID.id")
+    @Mapping(source = "receptionistEmployee", target = "receptionistID.employees")
     Booking resourceBookingDTOToBooking(ResourceBookingDTO resourceBookingDTO);
 
     @InheritInverseConfiguration(name = "resourceBookingDTOToBooking")

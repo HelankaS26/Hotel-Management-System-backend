@@ -29,14 +29,15 @@ public class ResourceBookingDTO implements Serializable {
     private Integer noOfPerson;
     private Instant checkIn;
     private Instant checkOut;
-    @NotNull
-    private ResourceReceptionistDTO receptionist;
-    private Set<ResourceReservationDTO> reservations = new LinkedHashSet<>();
+    @Size(max = 8)
+    private String receptionistId;
+    private ResourceEmployeeDTO receptionistEmployee;
+    private Set<ReservationDTO> reservations = new LinkedHashSet<>();
 
     public ResourceBookingDTO() {
     }
 
-    public ResourceBookingDTO(Integer id, ResourceGuestDTO guest, LocalDate dateFrom, LocalDate dateTo, String status, BigDecimal billingAmount, Integer noOfPerson, Instant checkIn, Instant checkOut, ResourceReceptionistDTO receptionist, Set<ResourceReservationDTO> reservations) {
+    public ResourceBookingDTO(Integer id, ResourceGuestDTO guest, LocalDate dateFrom, LocalDate dateTo, String status, BigDecimal billingAmount, Integer noOfPerson, Instant checkIn, Instant checkOut, String receptionistId, ResourceEmployeeDTO receptionistEmployee, Set<ReservationDTO> reservations) {
         this.id = id;
         this.guest = guest;
         this.dateFrom = dateFrom;
@@ -46,7 +47,8 @@ public class ResourceBookingDTO implements Serializable {
         this.noOfPerson = noOfPerson;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
-        this.receptionist = receptionist;
+        this.receptionistId = receptionistId;
+        this.receptionistEmployee = receptionistEmployee;
         this.reservations = reservations;
     }
 
@@ -122,19 +124,27 @@ public class ResourceBookingDTO implements Serializable {
         this.checkOut = checkOut;
     }
 
-    public ResourceReceptionistDTO getReceptionist() {
-        return receptionist;
+    public String getReceptionistId() {
+        return receptionistId;
     }
 
-    public void setReceptionist(ResourceReceptionistDTO receptionist) {
-        this.receptionist = receptionist;
+    public void setReceptionistId(String receptionistId) {
+        this.receptionistId = receptionistId;
     }
 
-    public Set<ResourceReservationDTO> getReservations() {
+    public ResourceEmployeeDTO getReceptionistEmployee() {
+        return receptionistEmployee;
+    }
+
+    public void setReceptionistEmployee(ResourceEmployeeDTO receptionistEmployee) {
+        this.receptionistEmployee = receptionistEmployee;
+    }
+
+    public Set<ReservationDTO> getReservations() {
         return reservations;
     }
 
-    public void setReservations(Set<ResourceReservationDTO> reservations) {
+    public void setReservations(Set<ReservationDTO> reservations) {
         this.reservations = reservations;
     }
 
@@ -152,13 +162,14 @@ public class ResourceBookingDTO implements Serializable {
                 Objects.equals(this.noOfPerson, entity.noOfPerson) &&
                 Objects.equals(this.checkIn, entity.checkIn) &&
                 Objects.equals(this.checkOut, entity.checkOut) &&
-                Objects.equals(this.receptionist, entity.receptionist) &&
+                Objects.equals(this.receptionistId, entity.receptionistId) &&
+                Objects.equals(this.receptionistEmployee, entity.receptionistEmployee) &&
                 Objects.equals(this.reservations, entity.reservations);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, guest, dateFrom, dateTo, status, billingAmount, noOfPerson, checkIn, checkOut, receptionist, reservations);
+        return Objects.hash(id, guest, dateFrom, dateTo, status, billingAmount, noOfPerson, checkIn, checkOut, receptionistId, receptionistEmployee, reservations);
     }
 
     @Override
@@ -173,7 +184,74 @@ public class ResourceBookingDTO implements Serializable {
                 "noOfPerson = " + noOfPerson + ", " +
                 "checkIn = " + checkIn + ", " +
                 "checkOut = " + checkOut + ", " +
-                "receptionist = " + receptionist + ", " +
+                "receptionistId = " + receptionistId + ", " +
+                "receptionistEmployee = " + receptionistEmployee + ", " +
                 "reservations = " + reservations + ")";
+    }
+
+    /**
+     * A DTO for the {@link com.hotelmanagement.entity.Reservation} entity
+     */
+    public static class ReservationDTO implements Serializable {
+        private Integer bookingIDId;
+        private ResourceRoomDTO roomID;
+        @NotNull
+        private BigDecimal nett;
+
+        public ReservationDTO() {
+        }
+
+        public ReservationDTO(Integer bookingIDId, ResourceRoomDTO roomID, BigDecimal nett) {
+            this.bookingIDId = bookingIDId;
+            this.roomID = roomID;
+            this.nett = nett;
+        }
+
+        public Integer getBookingIDId() {
+            return bookingIDId;
+        }
+
+        public void setBookingIDId(Integer bookingIDId) {
+            this.bookingIDId = bookingIDId;
+        }
+
+        public ResourceRoomDTO getRoomID() {
+            return roomID;
+        }
+
+        public void setRoomID(ResourceRoomDTO roomID) {
+            this.roomID = roomID;
+        }
+
+        public BigDecimal getNett() {
+            return nett;
+        }
+
+        public void setNett(BigDecimal nett) {
+            this.nett = nett;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            ReservationDTO entity = (ReservationDTO) o;
+            return Objects.equals(this.bookingIDId, entity.bookingIDId) &&
+                    Objects.equals(this.roomID, entity.roomID) &&
+                    Objects.equals(this.nett, entity.nett);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(bookingIDId, roomID, nett);
+        }
+
+        @Override
+        public String toString() {
+            return getClass().getSimpleName() + "(" +
+                    "bookingIDId = " + bookingIDId + ", " +
+                    "roomID = " + roomID + ", " +
+                    "nett = " + nett + ")";
+        }
     }
 }
