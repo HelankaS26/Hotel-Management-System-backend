@@ -92,6 +92,7 @@ CREATE TABLE `bills` (
 
 LOCK TABLES `bills` WRITE;
 /*!40000 ALTER TABLE `bills` DISABLE KEYS */;
+INSERT INTO `bills` VALUES (1,'ITEMS001',1500.00,2,NULL),(1,'ITEMS002',2000.00,1,NULL),(3,'ITEMS001',1500.00,3,NULL),(3,'ITEMS002',2000.00,3,NULL);
 /*!40000 ALTER TABLE `bills` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -279,7 +280,7 @@ CREATE TABLE `bookings` (
   CONSTRAINT `bookings_ibfk_1` FOREIGN KEY (`guestID`) REFERENCES `guests` (`telNo`),
   CONSTRAINT `bookings_ibfk_2` FOREIGN KEY (`receptionistID`) REFERENCES `receptionists` (`receptionistID`),
   CONSTRAINT `bookings_chk_1` CHECK ((`Status` in (_utf8mb4'Reserved',_utf8mb4'Confirmed',_utf8mb4'Cancelled',_utf8mb4'Completed')))
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +289,7 @@ CREATE TABLE `bookings` (
 
 LOCK TABLES `bookings` WRITE;
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
-INSERT INTO `bookings` VALUES (1,'0717893412','2022-10-10','2022-10-12','Reserved',38000.00,3,NULL,NULL,'RECEP001',NULL),(2,'0717893412','2022-10-10','2022-10-12','Reserved',20000.00,3,NULL,NULL,'RECEP001',NULL),(3,'0717893412','2022-11-10','2022-11-12','Reserved',NULL,4,NULL,NULL,'RECEP001',NULL);
+INSERT INTO `bookings` VALUES (1,'0717893412','2023-11-10','2023-11-12','Cancelled',38000.00,5,'2022-10-15 19:14:58','2022-10-15 19:15:15','RECEP001','2022-10-15 19:16:25'),(2,'0717893412','2023-11-10','2023-11-12','Cancelled',20000.00,3,'2022-10-15 20:57:38','2022-10-15 20:58:06','RECEP001',NULL),(11,'0717893412','2022-11-10','2022-11-12','Reserved',38000.00,4,NULL,NULL,'RECEP001',NULL);
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -610,7 +611,7 @@ CREATE TABLE `orders` (
   CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`chefID`) REFERENCES `chefs` (`chefID`),
   CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`cashierID`) REFERENCES `cashiers` (`cashierID`),
   CONSTRAINT `orders_chk_1` CHECK ((`Status` in (_utf8mb4'Pending',_utf8mb4'Cooking',_utf8mb4'Cooked',_utf8mb4'Cancelled',_utf8mb4'Paid')))
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -619,7 +620,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'2022-10-12 17:23:42','Paid',NULL,'WAITR001','CHEFS001','CASHR001',NULL),(2,'2022-10-13 22:50:36','Pending',NULL,'WAITR001',NULL,NULL,NULL);
+INSERT INTO `orders` VALUES (1,'2022-10-12 17:23:42','Cancelled',5000.00,'WAITR001','CHEFS001','CASHR001','2022-10-15 21:00:22'),(3,'2022-10-15 20:53:12','Cancelled',10500.00,'WAITR001','CHEFS001','CASHR001',NULL);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -633,6 +634,7 @@ SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `orders_view` AS SELECT 
  1 AS `orderID`,
+ 1 AS `date`,
  1 AS `status`,
  1 AS `netPrice`,
  1 AS `waiterID`,
@@ -690,7 +692,7 @@ CREATE TABLE `reservations` (
 
 LOCK TABLES `reservations` WRITE;
 /*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
-INSERT INTO `reservations` VALUES (1,1,20000.00,NULL),(1,2,18000.00,NULL),(2,1,20000.00,NULL);
+INSERT INTO `reservations` VALUES (1,1,20000.00,NULL),(1,2,18000.00,NULL),(2,1,20000.00,NULL),(11,1,20000.00,NULL),(11,2,18000.00,NULL);
 /*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1081,7 +1083,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `orders_view` AS select `orders`.`orderID` AS `orderID`,`orders`.`date` AS `status`,`orders`.`netPrice` AS `netPrice`,`orders`.`waiterID` AS `waiterID`,`orders`.`chefID` AS `chefID`,`orders`.`cashierID` AS `cashierID`,`orders`.`deletedAt` AS `deletedAt` from `orders` where (`orders`.`deletedAt` is null) */;
+/*!50001 VIEW `orders_view` AS select `orders`.`orderID` AS `orderID`,`orders`.`date` AS `date`,`orders`.`status` AS `status`,`orders`.`netPrice` AS `netPrice`,`orders`.`waiterID` AS `waiterID`,`orders`.`chefID` AS `chefID`,`orders`.`cashierID` AS `cashierID`,`orders`.`deletedAt` AS `deletedAt` from `orders` where (`orders`.`deletedAt` is null) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1131,4 +1133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-13 23:02:28
+-- Dump completed on 2022-10-15 21:06:11
